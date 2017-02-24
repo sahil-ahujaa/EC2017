@@ -25,7 +25,7 @@ public class SponsorsActivity extends AppCompatActivity {
         ArrayList<SponsorsDetails> sponsorList=new ArrayList<>();
         SponsorsDetails sponsorsDetails=new SponsorsDetails("Hackerearth","(Tech Sponsor)",R.drawable.hackerearth_identity_white);
         sponsorList.add(sponsorsDetails);
-        sponsorList.add(sponsorsDetails);
+        //sponsorList.add(sponsorsDetails);
         recyclerView.setAdapter(new SponsorsRecyclerAdapter(sponsorList,SponsorsActivity.this));
 
     }

@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -94,70 +98,58 @@ public class MyTicketsActivity extends AppCompatActivity {
     }
     public void showList(String phn){
         String url="https://elementsculmyca2017.herokuapp.com/api/v1/registrationdetails/"+phn;
-        OkHttpClient okHttpClient=new OkHttpClient();
-        Request request=new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Log.d(TAG,"Failed");
-                runOnUiThread(new Runnable() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
+                new com.android.volley.Response.Listener<String>() {
                     @Override
-                    public void run() {
-                        progressDialog.cancel();
-                        Utils.makeAlert("","Could not connect to servers!",MyTicketsActivity.this);
-                    }
-                });
-            }
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray=new JSONArray(response);
+                            JSONObject jsonObject;
+                            final int i=jsonArray.length();
+                            if (i>0) {
 
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String res=response.body().string();
-                Log.d("Recievd",res);
-                try{
-                    JSONArray jsonArray=new JSONArray(res);
-                    JSONObject jsonObject;
-                    final int i=jsonArray.length();
-                    if (i>0) {
+                                final ArrayList<TicketDetails> ticketList = new ArrayList<TicketDetails>();
+                                for (int j=0;j<i;j++){
+                                    jsonObject=jsonArray.getJSONObject(j);
+                                    String event=dbHelper.getEventNameById(jsonObject.getString("eventid"));
+                                    String qrcode=jsonObject.getString("qrcode");
+                                    ticketList.add(new TicketDetails(qrcode,event));
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ticketNum.setText("Hurray you have "+i+" tickets!");
+                                        ticketNum.setVisibility(View.VISIBLE);
+                                        progressDialog.cancel();
+                                        recyclerView.setAdapter(new MyTicketsAdapter(ticketList,MyTicketsActivity.this));
+                                    }
+                                });
 
-                        final ArrayList<TicketDetails> ticketList = new ArrayList<TicketDetails>();
-                        for (int j=0;j<i;j++){
-                            jsonObject=jsonArray.getJSONObject(j);
-                            String event=dbHelper.getEventNameById(jsonObject.getString("eventid"));
-                            String qrcode=jsonObject.getString("qrcode");
-                            ticketList.add(new TicketDetails(qrcode,event));
+                            }
+                            else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.cancel();
+                                        Utils.makeAlert("","You are not registered in any event!",MyTicketsActivity.this);
+                                    }
+                                });
+
+                            }
+
+                        }catch (JSONException e){
+                            Log.d(TAG,"JSON error");
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ticketNum.setText("Hurray you have "+i+" tickets!");
-                                ticketNum.setVisibility(View.VISIBLE);
-                                progressDialog.cancel();
-                                recyclerView.setAdapter(new MyTicketsAdapter(ticketList,MyTicketsActivity.this));
-                            }
-                        });
 
                     }
-                    else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.cancel();
-                                Utils.makeAlert("","You are not registered in any event!",MyTicketsActivity.this);
-                            }
-                        });
-
-                    }
-
-                }catch (JSONException e){
-                    Log.d(TAG,"JSON error");
-                }
-
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.cancel();
+                Utils.makeAlert("","Could not connect to servers!",MyTicketsActivity.this);
             }
         });
-
-
+        queue.add(stringRequest);
     }
 }

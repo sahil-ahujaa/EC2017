@@ -11,12 +11,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="dev.elementsculmyca.ec2017.RegisterationActivity">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="270dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        app:counterTextAppearance="@android:color/white"
+        app:theme="@style/Autocomplete">
+        <TextView
+            android:id="@+id/event_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@android:color/white"
+            android:enabled="false"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
+
+    </android.support.design.widget.TextInputLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        >
+        android:layout_marginTop="90dp">
         <LinearLayout
             android:layout_width="270sp"
             android:layout_height="wrap_content"
@@ -25,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+91"
+                android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"/>
@@ -32,16 +52,19 @@
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                app:counterMaxLength="10">
+                app:counterMaxLength="10"
+                android:textColorHint="@android:color/white"
+                app:counterTextAppearance="@android:color/white"
+                app:theme="@style/Autocomplete">
                 <AutoCompleteTextView
                     android:id="@+id/phone_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="phone"
+                    android:hint="Phone"
                     android:maxLength="10"
-                    android:inputType="phone"
+                    android:inputType="number"
                     android:maxLines="1"
-                     />
+                    android:hapticFeedbackEnabled="true"/>
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -54,12 +77,15 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="270dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        app:counterTextAppearance="@android:color/white"
+        app:theme="@style/Autocomplete">
         <AutoCompleteTextView
             android:id="@+id/email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="email"
+            android:hint="Email ID"
 
             android:inputType="textEmailAddress"
             android:maxLines="1" />
@@ -68,27 +94,15 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="270dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        app:counterTextAppearance="@android:color/white"
+        app:theme="@style/Autocomplete">
         <AutoCompleteTextView
             android:id="@+id/fullname_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="full name"
-            android:textColorHint="@android:color/white"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-             />
-
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="270dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content">
-        <AutoCompleteTextView
-            android:id="@+id/college_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="college"
+            android:hint="Full Name"
 
             android:inputType="textEmailAddress"
             android:maxLines="1"
@@ -98,28 +112,145 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="270dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        app:counterTextAppearance="@android:color/white"
+        app:theme="@style/Autocomplete">
         <AutoCompleteTextView
-            android:id="@+id/event_input"
+            android:id="@+id/college_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="event"
-            android:enabled="false"
+            android:hint="College"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-             />
+            />
 
     </android.support.design.widget.TextInputLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="register"
         android:textSize="20sp"
         android:id="@+id/register_btn"
-        android:layout_gravity="end"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         />
 
 
 
 
-</LinearLayout>
+    <!--  <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_gravity="center"
+          >
+          <LinearLayout
+              android:layout_width="270sp"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="+91"
+                  android:textSize="25sp"
+                  android:textStyle="bold"
+                  android:layout_gravity="center_vertical"/>
+              <android.support.design.widget.TextInputLayout
+                  android:layout_width="match_parent"
+                  android:layout_gravity="center"
+                  android:layout_height="wrap_content"
+                  app:counterMaxLength="10">
+                  <AutoCompleteTextView
+                      android:id="@+id/phone_input"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="phone"
+                      android:maxLength="10"
+                      android:inputType="phone"
+                      android:maxLines="1"
+                       />
+
+              </android.support.design.widget.TextInputLayout>
+          </LinearLayout>
+          <ProgressBar
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:visibility="gone"
+              android:id="@+id/main_activity_progress_bar"/>
+      </LinearLayout>
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="270dp"
+          android:layout_gravity="center"
+          android:layout_height="wrap_content">
+          <AutoCompleteTextView
+              android:id="@+id/email_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="email"
+
+              android:inputType="textEmailAddress"
+              android:maxLines="1" />
+
+      </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="270dp"
+          android:layout_gravity="center"
+          android:layout_height="wrap_content">
+          <AutoCompleteTextView
+              android:id="@+id/fullname_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="full name"
+              android:textColorHint="@android:color/white"
+              android:inputType="textEmailAddress"
+              android:maxLines="1"
+               />
+
+      </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="270dp"
+          android:layout_gravity="center"
+          android:layout_height="wrap_content">
+          <AutoCompleteTextView
+              android:id="@+id/college_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="college"
+
+              android:inputType="textEmailAddress"
+              android:maxLines="1"
+              />
+
+      </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="270dp"
+          android:layout_gravity="center"
+          android:layout_height="wrap_content">
+          <AutoCompleteTextView
+              android:id="@+id/event_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="event"
+              android:enabled="false"
+              android:inputType="textEmailAddress"
+              android:maxLines="1"
+               />
+
+      </android.support.design.widget.TextInputLayout>
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="register"
+          android:textSize="20sp"
+          android:id="@+id/register_btn"
+          android:layout_gravity="end"
+          />
+
+
+
+
+  --></LinearLayout>
