@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_tickets"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="dev.elementsculmyca.ec2017.MyTicketsActivity">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ticket_phn_inputlayout">
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:inputType="number"
+        android:id="@+id/ticket_phn_input"
+        android:hint="Phone No"
+        />
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ticket_phn_inputlayout"
+        android:text="Show"
+        android:id="@+id/ticket_phn_btn"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ticket_phn_btn"
+        android:layout_below="@+id/ticket_phn_inputlayout">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:text="no. of tickets"
+        android:visibility="gone"
+        android:id="@+id/ticket_num"
+        />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/ticket_phn_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_tickets_recycler_view">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

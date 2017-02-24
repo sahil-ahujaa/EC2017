@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EC 2017</string>
+    <string name="HemantName">Hemant Bansal</string>
+    <string name="NamanName">Naman Sachdeva</string>
+    <string name="GauravName">Gaurav Yadav</string>
+    <string name="HemantRole">Full Stack Developer</string>
+    <string name="NamanRole">UI/UX Developer</string>
+    <string name="GauravRole">Google Maps</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAKQXu4YC_QYyUk0P2BcXjSarWhXy1esNM</string>
+</resources>

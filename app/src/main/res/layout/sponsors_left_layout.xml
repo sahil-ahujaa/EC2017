@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="50dp"
+    app:cardCornerRadius="6dp"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B3000000"
+            android:padding="3dp"
+            >
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/sponsor_left_logo"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:layout_marginLeft="3dp"
+                android:textColor="@android:color/white"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:layout_toRightOf="@+id/sponsor_left_logo"
+                android:id="@+id/sponsor_left_name_text"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:layout_marginLeft="3dp"
+                android:textColor="@android:color/white"
+                android:ellipsize="end"
+                android:layout_below="@+id/sponsor_left_name_text"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/sponsor_left_logo"
+                android:id="@+id/sponsor_left_title_text"
+                />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
