@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_registeration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="dev.elementsculmyca.ec2017.RegisterationActivity">
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="270dp"
-        android:layout_gravity="center"
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/register_bg"
+    android:scaleType="centerCrop"
+    />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/white"
-        app:counterTextAppearance="@android:color/white"
-        app:theme="@style/Autocomplete">
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/event_input"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="25sp"
+            android:gravity="center"
+            android:text="Event Name"
+            android:textSize="22sp"
             android:textColor="@android:color/white"
-            android:enabled="false"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
-    </android.support.design.widget.TextInputLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp">
+        android:layout_marginTop="20dp">
+
         <LinearLayout
-            android:layout_width="270sp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+91"
-                android:textColor="@android:color/white"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
@@ -60,18 +59,19 @@
                     android:id="@+id/phone_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone"
+                    android:hint="Phone(+91)*"
                     android:maxLength="10"
                     android:inputType="number"
+                    android:digits="0123456789"
                     android:maxLines="1"
                     android:hapticFeedbackEnabled="true"/>
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:visibility="gone"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="invisible"
             android:id="@+id/main_activity_progress_bar"/>
     </LinearLayout>
     <android.support.design.widget.TextInputLayout
@@ -85,7 +85,7 @@
             android:id="@+id/email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email ID"
+            android:hint="Email ID*"
 
             android:inputType="textEmailAddress"
             android:maxLines="1" />
@@ -139,6 +139,10 @@
         android:layout_marginRight="35dp"
         />
 
+
+
+    </LinearLayout>
+</RelativeLayout>
 
 
 
@@ -253,4 +257,4 @@
 
 
 
-  --></LinearLayout>
+  -->

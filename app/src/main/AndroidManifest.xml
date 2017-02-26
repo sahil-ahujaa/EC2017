@@ -30,9 +30,9 @@
         <activity
             android:name=".EventDescriptionDetails"
             android:configChanges="orientation"
+            android:parentActivityName=".EventCategoryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:parentActivityName=".EventCategoryActivity"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".RegisterationActivity"
             android:configChanges="orientation"
@@ -52,10 +52,10 @@
             android:name=".MapsActivity"
             android:parentActivityName=".EventCategoryActivity" />
         <activity android:name=".SponsorsActivity" />
-        <activity android:name=".MyTicketsActivity"
-            android:parentActivityName=".EventCategoryActivity">
-
-        </activity>
+        <activity
+            android:name=".MyTicketsActivity"
+            android:parentActivityName=".EventCategoryActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

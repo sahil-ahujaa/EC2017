@@ -3,8 +3,12 @@
     <string name="HemantName">Hemant Bansal</string>
     <string name="NamanName">Naman Sachdeva</string>
     <string name="GauravName">Gaurav Yadav</string>
+    <string name="GunpreetName">Gunpreet Singh</string>
     <string name="HemantRole">Full Stack Developer</string>
     <string name="NamanRole">UI/UX Developer</string>
-    <string name="GauravRole">Google Maps</string>
+    <string name="GunpreetRole">Associate Developer</string>
+    <string name="GauravRole">Developer</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAKQXu4YC_QYyUk0P2BcXjSarWhXy1esNM</string>
+    <string name="AboutCulmca">When entertainment meets innovation, CULMYCA begins! Elements Culmyca is the annual cultural and technical festival of YMCA UST. We have a melagne of metal and melody, hip hop and jazz, audacious street plays and the silent emotions of Charlie Chaplin too. With budding poets and passionate debators, Da Vincis and Zuckerbergs, here\'s a platform wherein you compete with the best. And folks, this three day extravaganza of Culture combined with Technology is no ordinary occassion. It is fun, it is different, it is huge, it is Elements Culmyca 2K17!</string>
+    <string name="AboutYmca">Situated in the sprawling Faridabad-Ballabhgarh Industrial Complex on NH-2 with only 30 miles from national capital, YMCA University of Science and Technology is a state university with its roots dating back to 1969. Over these years, YMCA has produced many notable alumnis. It\'s definitely one of the best in region and best in Haryana. The lush green campus incorporates branches of the Indian Overseas Bank, Indian Post and various other medical and hosteling facilities. </string>
 </resources>

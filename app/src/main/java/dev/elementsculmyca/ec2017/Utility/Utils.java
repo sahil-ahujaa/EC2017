@@ -16,6 +16,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.tiancaicc.springfloatingactionmenu.OnMenuActionListener;
 import com.tiancaicc.springfloatingactionmenu.SpringFloatingActionMenu;
 
+import dev.elementsculmyca.ec2017.AboutActivity;
 import dev.elementsculmyca.ec2017.DevelopersActivity;
 import dev.elementsculmyca.ec2017.MapsActivity;
 import dev.elementsculmyca.ec2017.MyTicketsActivity;
@@ -107,7 +108,14 @@ public class Utils {
                         Intent i=new Intent(context, SponsorsActivity.class);
                         context.startActivity(i);
                     }
-                })
+                }).addMenuItem(R.color.sprIconBg, R.mipmap.ic_launcher, "About", R.color.springTextCl, new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          Utils.toastS(context,"About");
+                          Intent i=new Intent(context, AboutActivity.class);
+                          context.startActivity(i);
+                      }
+                  })
                 .addMenuItem(R.color.sprIconBg, R.mipmap.ic_launcher, "Location", R.color.springTextCl, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -116,7 +124,6 @@ public class Utils {
                         context.startActivity(i);
                     }
                 })
-
                 .addMenuItem(R.color.sprIconBg, R.mipmap.ic_launcher, "Developers", R.color.springTextCl, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -124,12 +131,6 @@ public class Utils {
                         Intent i=new Intent(context, DevelopersActivity.class);
                         context.startActivity(i);
 
-                    }
-                })
-                .addMenuItem(R.color.sprIconBg, R.mipmap.ic_launcher, "About", R.color.springTextCl, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.toastS(context,"About");
                     }
                 })
                 //you can choose menu layout animation

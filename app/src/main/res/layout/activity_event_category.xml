@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-android:background="@drawable/content_event_activity_bg"
+
     tools:context="dev.elementsculmyca.ec2017.EventCategoryActivity">
 
         <android.support.v7.widget.RecyclerView

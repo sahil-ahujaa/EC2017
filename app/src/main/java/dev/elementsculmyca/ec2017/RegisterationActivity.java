@@ -17,23 +17,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,38 +54,36 @@ public class RegisterationActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.main_activity_progress_bar);
         eventInput = (TextView) findViewById(R.id.event_input);
         eventInput.setText(eventName);
-
         phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 final String phoneNo = phone.getText().toString();
                 if (phoneNo.length() == 10) {
+                    phone.setError(null);
                     if (Utils.isNetConnected(RegisterationActivity.this)) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.VISIBLE);
-
                             }
                         });
                         checkDetails(phoneNo);
 
                     }
                 } else {
+                    phone.setError("Should be 10 digits");
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
                     queue.cancelAll(CHECK_TAG);
@@ -105,28 +92,47 @@ public class RegisterationActivity extends AppCompatActivity {
 
             }
         });
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (Validation.isEmailValid(email.getText().toString())){
+                    email.setError(null);
+                }
+                else{
+                    email.setError("Invalid");
+                }
+            }
+        });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Validation.isEmailAddress(email, true)) {
-                    showError(email);
-                }
-                if (Utils.isNetConnected(RegisterationActivity.this)) {
-                    regProgressDialog = new ProgressDialog(RegisterationActivity.this);
-                    regProgressDialog.setMessage("Registering you for the Event!");
-                    regProgressDialog.setTitle("");
-                    regProgressDialog.setCancelable(false);
-                    regProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    regProgressDialog.show();
-                    register(phone.getText().toString(), email.getText().toString()
-                            , fname.getText().toString()
-                            , college.getText().toString(), eventId);
+                if (phone.getText().length()==10&&Validation.isEmailValid(email.getText().toString())) {
+                    if (Utils.isNetConnected(RegisterationActivity.this)) {
+                        regProgressDialog = new ProgressDialog(RegisterationActivity.this);
+                        regProgressDialog.setMessage("Registering you for the Event!");
+                        regProgressDialog.setTitle("");
+                        regProgressDialog.setCancelable(false);
+                        regProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        regProgressDialog.show();
+                        register(phone.getText().toString(), email.getText().toString().trim()
+                                , fname.getText().toString()
+                                , college.getText().toString(), eventId);
 
-                } else {
-                    Utils.makeAlert("", "Connect To Internet and try again", RegisterationActivity.this);
+                    }
+                    else {
+                        Utils.makeAlert("", "Connect To Internet and try again", RegisterationActivity.this);
+                    }
                 }
-
-                Toast.makeText(RegisterationActivity.this, "Calling", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterationActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -134,7 +140,7 @@ public class RegisterationActivity extends AppCompatActivity {
     }
 
 
-    public void register(final String phone, final String email, final String fullname, final String college, final String eventId) {
+    public void register(final String phone, final String emailAddr, final String fullname, final String college, final String eventId) {
         String ur = "https://elementsculmyca2017.herokuapp.com/api/v1/register";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, ur,
@@ -145,10 +151,6 @@ public class RegisterationActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String s = jsonObject.getString(jsonObject.names().get(0).toString());
                             if (s.equals("Registration Successful")) {
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
                                         regProgressDialog.cancel();
                                         final AlertDialog alertDialog = new AlertDialog.Builder(RegisterationActivity.this)
                                                 .setTitle("Successful")
@@ -164,13 +166,10 @@ public class RegisterationActivity extends AppCompatActivity {
                                                 })
                                                 .create();
                                         alertDialog.show();
-
-                                    }
-                                });
-
                             } else {
                                 regProgressDialog.cancel();
                                 Utils.toastS(RegisterationActivity.this, s);
+
                             }
                         } catch (JSONException e) {
                             regProgressDialog.cancel();
@@ -188,7 +187,7 @@ public class RegisterationActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("phoneno", phone);
-                params.put("email", email);
+                params.put("email", emailAddr);
                 params.put("fullname", fullname);
                 params.put("college", college);
                 params.put("eventid", eventId);
@@ -213,26 +212,26 @@ public class RegisterationActivity extends AppCompatActivity {
                             if (!s.equals("message")) {
 
                                 try {
-                                    progressBar.setVisibility(View.GONE);
+                                    progressBar.setVisibility(View.INVISIBLE);
                                     if (phone.getText().toString().equals(phoneno)) {
                                         email.setText(jsonObject.getString("email"));
                                         fname.setText(jsonObject.getString("fullname"));
                                         college.setText(jsonObject.getString("college"));
                                     }
                                 } catch (JSONException e) {
-                                    progressBar.setVisibility(View.GONE);
+                                    progressBar.setVisibility(View.INVISIBLE);
                                 }
                             } else {
-                                progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         } catch (JSONException e) {
-                            progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
         stringRequest.setTag(CHECK_TAG);

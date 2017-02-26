@@ -6,12 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +40,7 @@ public class SplashScreen extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveList();
+              //  saveList();
             }
         });
         getBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,54 +58,5 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         });
-    }
-    public void saveList(){
-        String url="https://elementsculmyca2017.herokuapp.com/api/v1/eventlist";
-        OkHttpClient okHttpClient=new OkHttpClient();
-        Request request=new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Log.d(TAG,"Failed");
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String res=response.body().string();
-                Log.d("Recievd",res);
-                    try{
-                    JSONArray jsonArray=new JSONArray(res);
-                    int numEvents=jsonArray.length();
-                    int i;
-
-                    for(i=0;i<numEvents;i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                        dbHelper.addEntryToDb(jsonObject.getString("_id"),
-                                jsonObject.getString("eventName"),
-                                jsonObject.getString("club"),
-                                jsonObject.getString("category"),
-                                jsonObject.getString("description"),
-                                jsonObject.getString("rules"),
-                                jsonObject.getString("venue"),
-                                jsonObject.getString("fee"),
-                                jsonObject.getString("startTime"),
-                                jsonObject.getString("endTime")
-
-                        );
-                        String s = jsonObject.toString();
-                        Log.d(TAG, s);
-                    }
-                }catch (JSONException e){
-                    Log.d(TAG,"JSON error");
-                }
-
-            }
-        });
-
-
     }
 }

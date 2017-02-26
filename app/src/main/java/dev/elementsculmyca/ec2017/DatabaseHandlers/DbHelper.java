@@ -138,6 +138,29 @@ public class DbHelper extends SQLiteOpenHelper{
         Cursor cursor=db.query(Schema.DbEntry.EVENT_LIST_TABLE_NAME,projection,Schema.DbEntry.EVENT_ID_COLUMN_NAME+" =?",new String[]{eventId},null,null,null);
         cursor.moveToFirst();
         eventName=cursor.getString(cursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_NAME_COLUMN_NAME));
+        cursor.close();
         return eventName;
+    }
+    public void updateEvents(String eventName,String category,String description,String rules,String venue,String fee,String startTime,String endTime){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(Schema.DbEntry.EVENT_CATEGORY_COLUMN_NAME,category);
+        cv.put(Schema.DbEntry.EVENT_DESCRIPTION_COLUMN_NAME,description);
+        cv.put(Schema.DbEntry.EVENT_RULES_COLUMN_NAME,rules);
+        cv.put(Schema.DbEntry.EVENT_VENUE_COLUMN_NAME,venue);
+        cv.put(Schema.DbEntry.EVENT_FEE_COLUMN_NAME,fee);
+        cv.put(Schema.DbEntry.EVENT_START_TIME_COLUMN_NAME,startTime);
+        cv.put(Schema.DbEntry.EVENT_END_TIME_COLUMN_NAME,endTime);
+        db.update(Schema.DbEntry.EVENT_LIST_TABLE_NAME,cv,Schema.DbEntry.EVENT_NAME_COLUMN_NAME+"=?",new String[]{eventName});
+
+    }
+    public int getCount(){
+        int i=0;
+        SQLiteDatabase db=getReadableDatabase();
+        String[] projection={Schema.DbEntry.EVENT_ID_COLUMN_NAME};
+        Cursor cursor=db.query(Schema.DbEntry.EVENT_LIST_TABLE_NAME,projection,null,null,null,null,null);
+        i=cursor.getCount();
+        cursor.close();
+        return i;
     }
 }

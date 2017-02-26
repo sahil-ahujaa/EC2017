@@ -3,6 +3,12 @@ package dev.elementsculmyca.ec2017;
 import android.content.Intent;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
@@ -13,9 +19,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import dev.elementsculmyca.ec2017.DatabaseHandlers.DbHelper;
 import dev.elementsculmyca.ec2017.Utility.ConstantUtils;
+import dev.elementsculmyca.ec2017.Utility.Utils;
 
 public class SplashAnimatedActivity extends AwesomeSplash {
+    final DbHelper dbHelper=new DbHelper(SplashAnimatedActivity.this);
     private static final String TAG="SPLASH";
+    RequestQueue requestQueue;
     private final DbHelper mDbHelper=new DbHelper(SplashAnimatedActivity.this);
     private static final String DROID_LOGO = "M 800.00,0.00\n" +
             "           C 800.00,0.00 800.00,600.00 800.00,600.00\n" +
@@ -149,8 +158,14 @@ public class SplashAnimatedActivity extends AwesomeSplash {
 
     @Override
     public void animationsFinished() {
-        saveInitialList(ConstantUtils.EVENT_LIST_INITIAL1);
-        saveInitialList(ConstantUtils.EVENT_LIST_INITIAL2);
+        requestQueue= Volley.newRequestQueue(SplashAnimatedActivity.this);
+        if (dbHelper.getCount()==0) {
+            saveInitialList(ConstantUtils.EVENT_LIST_INITIAL1);
+            saveInitialList(ConstantUtils.EVENT_LIST_INITIAL2);
+        }
+        if (Utils.isNetConnected(SplashAnimatedActivity.this)){
+            updateList();
+        }
         Intent i=new Intent(SplashAnimatedActivity.this,EventCategoryActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
@@ -158,7 +173,6 @@ public class SplashAnimatedActivity extends AwesomeSplash {
     }
     private void saveInitialList(String list){
         try{
-
             JSONArray jsonArray=new JSONArray(list);
             int numEvents=jsonArray.length();
             int i;
@@ -176,7 +190,6 @@ public class SplashAnimatedActivity extends AwesomeSplash {
                                 jsonObject.getString("fee"),
                                 jsonObject.getString("startTime"),
                                 jsonObject.getString("endTime")
-
                         );
                 String s = jsonObject.toString();
                 Log.d(TAG, s);
@@ -191,6 +204,45 @@ public class SplashAnimatedActivity extends AwesomeSplash {
         }catch (JSONException e){
             Log.d(TAG,"JSON error");
         }
+
+    }
+    private void updateList(){
+        String url="https://elementsculmyca2017.herokuapp.com/api/v1/eventlist";
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray=new JSONArray(response);
+                            int numEvents=jsonArray.length();
+                            int i;
+
+                            for(i=0;i<numEvents;i++) {
+                                try{JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                dbHelper.updateEvents(jsonObject.getString("eventName"),
+                                        jsonObject.getString("category"),
+                                        jsonObject.getString("description"),
+                                        jsonObject.getString("rules"),
+                                        jsonObject.getString("venue"),
+                                        jsonObject.getString("fee"),
+                                        jsonObject.getString("startTime"),
+                                        jsonObject.getString("endTime")
+                                );
+                                    Log.d("update","asd");
+                                }catch (JSONException e){
+
+                                }
+                            }
+                        }catch (JSONException e){
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+            requestQueue.add(stringRequest);
 
     }
 

@@ -22,9 +22,9 @@ public class DevelopersActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mCardAdapter = new DevelopersCardPagerAdapter();
         mCardAdapter.addCardItem(new DevelopersCardItem(R.string.HemantName,R.string.HemantRole, R.drawable.hemant_pic,"https://www.linkedin.com/in/hemantbansal950",DevelopersActivity.this));
-        mCardAdapter.addCardItem(new DevelopersCardItem(R.string.NamanName,R.string.NamanRole, R.drawable.ic_date1,"https://in.linkedin.com/in/namansachdeva",DevelopersActivity.this));
-        mCardAdapter.addCardItem(new DevelopersCardItem(R.string.GauravName,R.string.GauravRole,R.drawable.ic_location1,"https://in.linkedin.com/in/gaurav-yadav-6248b5129",DevelopersActivity.this));
-
+        mCardAdapter.addCardItem(new DevelopersCardItem(R.string.NamanName,R.string.NamanRole, R.drawable.developer_naman,"https://in.linkedin.com/in/namansachdeva",DevelopersActivity.this));
+        mCardAdapter.addCardItem(new DevelopersCardItem(R.string.GauravName,R.string.GauravRole,R.drawable.gaurav_pic,"https://in.linkedin.com/in/gaurav-yadav-6248b5129",DevelopersActivity.this));
+        mCardAdapter.addCardItem(new DevelopersCardItem(R.string.GunpreetName,R.string.GunpreetRole,R.drawable.gunpreet_pic,"https://in.linkedin.com/in/gunpreet-singh-65813a115",DevelopersActivity.this));
         mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
 
         mViewPager.setAdapter(mCardAdapter);

@@ -4,9 +4,12 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
+
     android:layout_gravity="center"
     app:cardUseCompatPadding="true"
+    app:cardCornerRadius="4dp"
+    android:elevation="6dp"
+    android:translationZ="6dp"
     >
 
     <FrameLayout
