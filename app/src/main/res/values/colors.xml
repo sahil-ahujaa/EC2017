@@ -9,8 +9,8 @@
     <color name="sprBtnRev">#303030</color>
     <color name="springTextCl">#C8C8C8</color>
     <color name="sprIconBg">#CEA480</color>
-    <color name="Splashbg">#03A300</color>
-    <color name="SplashLogoFillBg">#464746</color>
+    <color name="Splashbg">#1B6DFF</color>
+    <color name="SplashLogoFillBg">#FFFFFF</color>
     <color name="SplashStrokecolor">#F7FFF2</color>
     <color name="sprBtnPressed">#383838</color>
 

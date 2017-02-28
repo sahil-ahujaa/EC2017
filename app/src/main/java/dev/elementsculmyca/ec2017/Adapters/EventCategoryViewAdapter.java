@@ -1,6 +1,7 @@
 package dev.elementsculmyca.ec2017.Adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,6 +46,9 @@ public class EventCategoryViewAdapter extends RecyclerView.Adapter<RecyclerView.
         if (viewType== ConstantUtils.CATEGORY_EVENT_TYPE){
             return new RecyclerViewHolder(LayoutInflater.from(context).inflate(R.layout.custom_category_row,parent,false));
         }
+        else if (viewType==ConstantUtils.EVENT_CATEGORY_STRING_TYPE){
+            return new CategoryTextViewHolder(LayoutInflater.from(context).inflate(R.layout.event_category_string_layout,parent,false));
+        }
         else {
             return new CarouselViewHolder(LayoutInflater.from(context).inflate(R.layout.carousel_view_layout,parent,false));
         }
@@ -56,6 +60,9 @@ public class EventCategoryViewAdapter extends RecyclerView.Adapter<RecyclerView.
         if (position==0){
             return ConstantUtils.CAROUSEL_VIEW_TYPE;
         }
+        else if (position==1){
+            return ConstantUtils.EVENT_CATEGORY_STRING_TYPE;
+        }
         return ConstantUtils.CATEGORY_EVENT_TYPE;
         /*return viewType.get(position);*/
     }
@@ -63,11 +70,12 @@ public class EventCategoryViewAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RecyclerViewHolder){
-            ((RecyclerViewHolder) holder).categoryTitle.setText(categoryName.get(position-1));
+            ((RecyclerViewHolder) holder).categoryTitle.setText(categoryName.get(position-2));
+            /*((RecyclerViewHolder) holder).categoryTitle.setPaintFlags(((RecyclerViewHolder) holder).categoryTitle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);*/
            LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             ((RecyclerViewHolder) holder).recyclerViewH.setLayoutManager(linearLayoutManager);
-            ((RecyclerViewHolder) holder).recyclerViewH.setAdapter(new RecyclerViewHorizontalAdapter(eventList.get(position-1),context));
+            ((RecyclerViewHolder) holder).recyclerViewH.setAdapter(new RecyclerViewHorizontalAdapter(eventList.get(position-2),context));
 
         }
         else if (holder instanceof CarouselViewHolder){
@@ -92,6 +100,12 @@ public class EventCategoryViewAdapter extends RecyclerView.Adapter<RecyclerView.
             categoryTitle=(TextView)view.findViewById(R.id.custom_row_title);
         }
     }
+    protected class CategoryTextViewHolder extends RecyclerView.ViewHolder{
+        public CategoryTextViewHolder(View view) {
+            super(view);
+        }
+    }
+
     protected class CarouselViewHolder extends RecyclerView.ViewHolder{
         CarouselView carouselView;
         public CarouselViewHolder(View itemView) {

@@ -130,7 +130,7 @@ public class SplashAnimatedActivity extends AwesomeSplash {
 
         //Customize Logo
         configSplash.setLogoSplash(R.mipmap.ic_launcher); //or any other drawable
-        configSplash.setAnimLogoSplashDuration(500); //int ms
+        configSplash.setAnimLogoSplashDuration(1000); //int ms
         configSplash.setAnimLogoSplashTechnique(Techniques.Bounce); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 
 
@@ -138,10 +138,10 @@ public class SplashAnimatedActivity extends AwesomeSplash {
         configSplash.setPathSplash(DROID_LOGO); //set path String
         configSplash.setOriginalHeight(800); //in relation to your svg (path) resource
         configSplash.setOriginalWidth(800); //in relation to your svg (path) resource
-        configSplash.setAnimPathStrokeDrawingDuration(500);
+        configSplash.setAnimPathStrokeDrawingDuration(2000);
         configSplash.setPathSplashStrokeSize(3); //I advise value be <5
         configSplash.setPathSplashStrokeColor(R.color.SplashStrokecolor); //any color you want form colors.xml
-        configSplash.setAnimPathFillingDuration(500);
+        configSplash.setAnimPathFillingDuration(1500);
         configSplash.setPathSplashFillColor(R.color.SplashLogoFillBg); //path object filling color
 
 
@@ -149,7 +149,7 @@ public class SplashAnimatedActivity extends AwesomeSplash {
         configSplash.setTitleSplash("Elements Culmyca 2017");
         configSplash.setTitleTextColor(R.color.strokeColor);
         configSplash.setTitleTextSize(30f); //float value
-        configSplash.setAnimTitleDuration(500);
+        configSplash.setAnimTitleDuration(2000);
         configSplash.setAnimTitleTechnique(Techniques.FadeInRight);
 //        configSplash.setTitleFont("fonts/myfont.ttf"); //provide string to your font located in assets/fonts/
 

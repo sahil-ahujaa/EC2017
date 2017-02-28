@@ -28,7 +28,7 @@
                 android:ellipsize="end"
                 android:layout_marginRight="3dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:layout_toLeftOf="@+id/sponsor_right_logo"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/sponsor_right_name_text"
                 />
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_below="@+id/sponsor_right_name_text"
                 android:textSize="20sp"
-                android:layout_toLeftOf="@+id/sponsor_right_logo"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/sponsor_right_title_text"
                 />
 

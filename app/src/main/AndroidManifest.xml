@@ -3,6 +3,7 @@
     package="dev.elementsculmyca.ec2017">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,7 +22,8 @@
             android:name=".EventCategoryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+            />
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation"
@@ -32,7 +34,8 @@
             android:configChanges="orientation"
             android:parentActivityName=".EventCategoryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+            />
         <activity
             android:name=".RegisterationActivity"
             android:configChanges="orientation"
@@ -51,11 +54,13 @@
         <activity
             android:name=".MapsActivity"
             android:parentActivityName=".EventCategoryActivity" />
-        <activity android:name=".SponsorsActivity" />
+        <activity android:name=".SponsorsActivity"
+            android:parentActivityName=".EventCategoryActivity"/>
         <activity
             android:name=".MyTicketsActivity"
             android:parentActivityName=".EventCategoryActivity"></activity>
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity"
+            android:parentActivityName=".EventCategoryActivity"></activity>
     </application>
 
 </manifest>

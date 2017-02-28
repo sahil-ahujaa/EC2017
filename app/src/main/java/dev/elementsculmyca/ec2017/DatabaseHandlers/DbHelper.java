@@ -99,6 +99,32 @@ public class DbHelper extends SQLiteOpenHelper{
         readCursor.close();
         return categoryList;
     }
+    public EventDetails retriveEventDetails(String event_id){
+        SQLiteDatabase db=getReadableDatabase();
+        String[] projection={ Schema.DbEntry.EVENT_ID_COLUMN_NAME,Schema.DbEntry.EVENT_NAME_COLUMN_NAME
+                ,Schema.DbEntry.EVENT_CLUB_COLUMN_NAME,Schema.DbEntry.EVENT_CATEGORY_COLUMN_NAME
+                ,Schema.DbEntry.EVENT_DESCRIPTION_COLUMN_NAME,Schema.DbEntry.EVENT_RULES_COLUMN_NAME
+                ,Schema.DbEntry.EVENT_VENUE_COLUMN_NAME,Schema.DbEntry.EVENT_FEE_COLUMN_NAME
+                ,Schema.DbEntry.EVENT_START_TIME_COLUMN_NAME,Schema.DbEntry.EVENT_END_TIME_COLUMN_NAME};
+        Cursor readCursor=db.query(Schema.DbEntry.EVENT_LIST_TABLE_NAME,projection,Schema.DbEntry.EVENT_ID_COLUMN_NAME+" = ?",new String[]{event_id} ,null,null,null);
+        readCursor.moveToFirst();
+        String eventId=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_ID_COLUMN_NAME));
+        String eventName=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_NAME_COLUMN_NAME));
+        String club=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_CLUB_COLUMN_NAME));
+        String category=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_CATEGORY_COLUMN_NAME));
+        String description=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_DESCRIPTION_COLUMN_NAME));
+        String rules=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_RULES_COLUMN_NAME));
+        String venue=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_VENUE_COLUMN_NAME));
+        String fee=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_FEE_COLUMN_NAME));
+        String startTime=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_START_TIME_COLUMN_NAME));
+        String endTime=readCursor.getString(readCursor.getColumnIndexOrThrow(Schema.DbEntry.EVENT_END_TIME_COLUMN_NAME));
+        EventDetails eventDetails=new EventDetails(eventId,eventName,club,category,description,rules,venue,fee
+                ,startTime,endTime);
+        readCursor.close();
+        return eventDetails;
+
+
+    }
 
     public ArrayList<EventDetails> retrieveEventsByCategory(String categoryName){
         SQLiteDatabase db=getReadableDatabase();

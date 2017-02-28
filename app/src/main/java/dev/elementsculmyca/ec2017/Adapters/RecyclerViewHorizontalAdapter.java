@@ -36,22 +36,18 @@ public class RecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Recycler
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
-        holder.eventName.setText(eventList.get(position).getEventName());
-        holder.img.setImageBitmap(BItmapHelper.decodeSampledBitmapFromResource(context.getResources(),
+        holder.eventName.setText(eventList.get(position).getEventName().toUpperCase());
+       holder.img.setImageBitmap(BItmapHelper.decodeSampledBitmapFromResource(context.getResources(),
                 Utils.getResIdByName(context,eventList.get(position).getEventName().toLowerCase())
                 ,holder.img.getMaxWidth(),holder.img.getMaxHeight()));
+
+        //holder.img.setImageResource(R.drawable.auto_design_quiz);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(context,EventDescriptionDetails.class);
-                i.putExtra("title",eventList.get(position).getEventName());
-                i.putExtra("desc",eventList.get(position).getDescription());
-                i.putExtra("venue",eventList.get(position).getVenue());
-                i.putExtra("rules",eventList.get(position).getRules());
+                i.putExtra("eventName",eventList.get(position).getEventName());
                 i.putExtra("eventId",eventList.get(position).getEventId());
-                i.putExtra("endTime",eventList.get(position).getEndTime());
-                i.putExtra("startTime",eventList.get(position).getStartTime());
-                i.putExtra("clubname",eventList.get(position).getClub());
                 context.startActivity(i);
             }
         });
@@ -77,5 +73,8 @@ public class RecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Recycler
             eventName=(TextView)view.findViewById(R.id.custom_row_card_event_name);
             cardView=(CardView)view.findViewById(R.id.custom_row_cardview);
         }
+    }
+    public  void s(){
+
     }
 }

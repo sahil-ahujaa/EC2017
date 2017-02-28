@@ -10,61 +10,44 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import dev.elementsculmyca.ec2017.DatabaseHandlers.DbHelper;
+import dev.elementsculmyca.ec2017.DatabaseHandlers.EventDetails;
 import dev.elementsculmyca.ec2017.Utility.Utils;
 
 public class EventDescriptionDetails extends AppCompatActivity {
-    Toolbar titleTb;
-    TextView venueText,descText,rulesText,startTimeTV,endTimeTV,clubNameTV;
-    ImageView venueImageView;
+    TextView venueTV,descTV,rulesTV,timeTV,feeTV;
     Button registerBtn;
+    final DbHelper dbHelper=new DbHelper(EventDescriptionDetails.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_description_details);
-        titleTb = (Toolbar) findViewById(R.id.toolbar);
-        registerBtn=(Button)findViewById(R.id.register_btn);
-        startTimeTV=(TextView)findViewById(R.id.start_time_tv);
-        endTimeTV=(TextView)findViewById(R.id.end_time_tv);
-       venueImageView=(ImageView)findViewById(R.id.venue_image_view);
-        clubNameTV=(TextView)findViewById(R.id.club_name_text_view);
-       // dateTV=(TextView)findViewById(R.id.date_textView);
-        /*
-        Resources resources=getResources();
-        final int resId=resources.getIdentifier("ic_location1","drawable",getPackageName());*/
-
-        venueImageView.setImageDrawable(Utils.getDrawableByName(EventDescriptionDetails.this,"ic_location1"));
-        venueText=(TextView)findViewById(R.id.location_textview);
-        descText=(TextView)findViewById(R.id.details_text_view);
-        rulesText=(TextView)findViewById(R.id.rules_text_view);
+        venueTV=(TextView)findViewById(R.id.event_details_loc_text);
+        descTV=(TextView)findViewById(R.id.event_details_description_text);
+        rulesTV=(TextView)findViewById(R.id.event_details_rules_text);
+        timeTV=(TextView)findViewById(R.id.event_details_time_text);
+        registerBtn=(Button)findViewById(R.id.event_details_register_btn);
         Intent i=getIntent();
-        final String title=i.getStringExtra("title");
-        String desc=i.getStringExtra("desc");
-        String venue=i.getStringExtra("venue");
-        String rules=i.getStringExtra("rules");
-        clubNameTV.setText(i.getStringExtra("clubname"));
-
+        final String eventName=i.getStringExtra("eventName");
         final String eventId=i.getStringExtra("eventId");
-        String eventEndTime=i.getStringExtra("endTime");
-        String eventStartTime=i.getStringExtra("startTime");
-        endTimeTV.setText(eventEndTime);
-        startTimeTV.setText(eventStartTime);
-        /*String date=i.getStringExtra("date");*/
-        Log.d("as",desc);
-        titleTb.setTitle(title);
-
-        descText.setText(desc);
-        venueText.setText(venue);
-        rulesText.setText(rules);
+        setTitle(eventName);
+        EventDetails eventDetails=dbHelper.retriveEventDetails(eventId);
+        venueTV.setText(eventDetails.getVenue());
+        descTV.setText(eventDetails.getDescription());
+        rulesTV.setText(eventDetails.getRules());
+        timeTV.setText(eventDetails.getStartTime()+" to "+eventDetails.getEndTime());
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(EventDescriptionDetails.this,RegisterationActivity.class);
+                i.putExtra("eventName",eventName);
                 i.putExtra("eventId",eventId);
-                i.putExtra("eventName",title);
                 startActivity(i);
+                overridePendingTransition(R.anim.right_to_left_slide,R.anim.right_to_left_slide);
             }
         });
-
 
     }
 }

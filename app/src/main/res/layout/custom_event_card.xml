@@ -21,7 +21,6 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:scaleType="centerCrop"
-
                     android:layout_height="match_parent"
                     android:id="@+id/custom_row_card_image_view"
                     />
@@ -33,6 +32,8 @@
                     android:ellipsize="end"
                     android:shadowColor="#000"
                     android:shadowRadius="20"
+                    android:text="EventName"
+                    android:textAlignment="center"
                     android:id="@+id/custom_row_card_event_name"
                     android:layout_alignParentBottom="true"
                     android:maxLines="1"

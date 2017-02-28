@@ -3,6 +3,7 @@ package dev.elementsculmyca.ec2017;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +38,20 @@ public class RegisterationActivity extends AppCompatActivity {
     TextView eventInput;
     Button registerButton;
     RequestQueue queue;
+    ImageView backImage;
     private final String CHECK_TAG = "check";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registeration);
+        backImage=(ImageView)findViewById(R.id.register_activity_back_img_btn);
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         queue = Volley.newRequestQueue(RegisterationActivity.this);
         Intent i = getIntent();
         final String eventId = i.getStringExtra("eventId");
@@ -115,24 +125,29 @@ public class RegisterationActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phone.getText().length()==10&&Validation.isEmailValid(email.getText().toString())) {
-                    if (Utils.isNetConnected(RegisterationActivity.this)) {
-                        regProgressDialog = new ProgressDialog(RegisterationActivity.this);
-                        regProgressDialog.setMessage("Registering you for the Event!");
-                        regProgressDialog.setTitle("");
-                        regProgressDialog.setCancelable(false);
-                        regProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        regProgressDialog.show();
-                        register(phone.getText().toString(), email.getText().toString().trim()
-                                , fname.getText().toString()
-                                , college.getText().toString(), eventId);
 
+                    if (phone.getText().length() == 10 && Validation.isEmailValid(email.getText().toString())&&fname.getText().toString().length()>0
+                            &&college.getText().toString().length()>0) {
+                        if (Utils.isNetConnected(RegisterationActivity.this)) {
+                            regProgressDialog = new ProgressDialog(RegisterationActivity.this);
+                            regProgressDialog.setMessage("Registering you for the Event!");
+                            regProgressDialog.setTitle("");
+                            regProgressDialog.setCancelable(false);
+                            regProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            regProgressDialog.show();
+                            register(phone.getText().toString(), email.getText().toString().trim()
+                                    , fname.getText().toString()
+                                    , college.getText().toString(), eventId);
+                            Utils.toastS(RegisterationActivity.this, "Registering...");
+                        } else {
+                            Utils.makeAlert("", "Connect To Internet and try again", RegisterationActivity.this);
+                        }
                     }
-                    else {
-                        Utils.makeAlert("", "Connect To Internet and try again", RegisterationActivity.this);
+                else {
+                        Utils.toastS(RegisterationActivity.this,"Enter Valid Details");
                     }
-                }
-                Toast.makeText(RegisterationActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 
@@ -154,7 +169,10 @@ public class RegisterationActivity extends AppCompatActivity {
                                         regProgressDialog.cancel();
                                         final AlertDialog alertDialog = new AlertDialog.Builder(RegisterationActivity.this)
                                                 .setTitle("Successful")
-                                                .setMessage("You are registered for the Event!")
+                                                .setMessage("You are registered for the Event!\n\n" +
+                                                        "An E-Ticket has been sent to your email, please check your spam folder in case you haven't" +
+                                                        " recieved it yet.\n\n" +
+                                                        "Note: You can View all the tickets by going to the Tickets option in the menu of app.")
                                                 .setCancelable(false)
                                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -167,8 +185,20 @@ public class RegisterationActivity extends AppCompatActivity {
                                                 .create();
                                         alertDialog.show();
                             } else {
+                                final AlertDialog alertDialog = new AlertDialog.Builder(RegisterationActivity.this)
+                                        .setTitle("")
+                                        .setMessage("You have already registered for the event.")
+                                        .setCancelable(true)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                        .create();
+                                alertDialog.show();
                                 regProgressDialog.cancel();
-                                Utils.toastS(RegisterationActivity.this, s);
+                                //Utils.toastS(RegisterationActivity.this, s);
 
                             }
                         } catch (JSONException e) {
