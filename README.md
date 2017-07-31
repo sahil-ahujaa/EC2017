@@ -11,3 +11,11 @@ Features:<br/>
 <br/>
 The app download link is below:<br/>
 https://play.google.com/store/apps/details?id=dev.elementsculmyca.ec2017&hl=en
+
+Team Members : 
+<ul>
+<li><a href="https://github.com/HemantGTX950">Hemant Bansal</a></li>
+<li><a href="https://github.com/namansachdeva">Naman Sachdeva</a></li>
+<li><a href="https://github.com/gauravyadav673">Gaurav Yadav</a></li>
+<li><a href="#">Gunpreet Singh</a></li>
+</ul>
