@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import dev.elementsculmyca.ec2017.DatabaseHandlers.DbHelper;
 import dev.elementsculmyca.ec2017.DatabaseHandlers.EventDetails;
 
+
 public class SplashScreen extends AppCompatActivity {
     static final String TAG="eventList";
     Button saveBtn,getBtn,nextBtn;
@@ -33,6 +34,7 @@ public class SplashScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(SplashScreen.this,EventCategoryActivity.class);
                 startActivity(i);
+                //Transition
                 overridePendingTransition(R.anim.right_to_left_slide,R.anim.activity_close_translate);
             }
         });
@@ -46,6 +48,7 @@ public class SplashScreen extends AppCompatActivity {
         getBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ArrayList Dbhelper
                 ArrayList<String> categories=dbHelper.retriveCategory();
                 int s=categories.size();
                 for(int i=0;i<s;i++){
